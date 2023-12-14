@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanila clock</title>
+    <style>
+        body {
+            display: flex;
+            background-color: orange;
+            color: white;
+            height: 100vh;
+            width: 100%;
+            margin: auto;
+            padding: 0;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .container {
+            width: 60%;
+        }
+
+        h1 {
+            text-transform: capitalize;
+        }
+
+        #time {
+            font-size: xx-large;
+            margin-bottom: 30px;
+
+        }
+
+        span:nth-child(-n+3):after {
+            content: " : ";
+        }
+
+        button {
+            font-size: x-large;
+            background-color: transparent;
+            color: white;
+            width: 30%;
+            border: 1px solid white;
+            margin: 10px;
+            padding: 10px 0;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Stopwatch</h1>
+        <h1>Vanila javascript stopwatch</h1>
+        <div id="time">
+            <span id="hr">00</span>
+            <span id="min">00</span>
+            <span id="sec">00</span>
+            <span id="count">00</span>
+        </div>
+        <button type="submit" id="start">Start</button>
+        <button type="submit" id="stop">Stop</button>
+        <button type="submit" id="reset">Reset</button>
+    </div>
+
+    <script>
+
+        let startbtn = document.getElementById("start");
+        let stopbtn = document.getElementById("stop");
+        let resetbtn = document.getElementById("reset");
+        let hr = document.getElementById("hr");
+        let min = document.getElementById("min");
+        let sec = document.getElementById("sec");
+        let cc = document.getElementById("count");
+
+        let hour = 0;
+        let minute = 0;
+        let second = 0;
+        let count = 0
+
+
+        startbtn.addEventListener("click", function () {
+            timer = true;
+            stopwatch();
+        })
+        stopbtn.addEventListener("click", function () {
+            timer = false;
+        })
+
+        resetbtn.addEventListener("click", function () {
+            timer = false;
+            hour = 0;
+            minute = 0;
+            second = 0;
+            count = 0;
+            hr.innerHTML = "00";
+            min.innerHTML = "00";
+            sec.innerHTML = "00";
+            cc.innerHTML = "00";
+        })
+        function stopwatch() {
+            if (timer) {
+                count++;
+                if (count == 100) {
+                    second++;
+                    count = 0;
+                }
+                if (second == 60) {
+                    minute++;
+                    second = 0;
+                }
+                if (minute == 60) {
+                    hour++;
+                    minute = 0;
+                    second = 0;
+                }
+                let hrString = hour;
+                let minString = minute;
+                let secString = second;
+                let countString = count;
+
+                if (hour < 10) {
+                    hrString = "0" + hrString;
+                }
+                if (minute < 10) {
+                    minString = "0" + minString;
+                }
+                if (second < 10) {
+                    secString = "0" + secString;
+                }
+                if (count < 10) {
+                    countString = "0" + countString;
+                }
+                hr.innerHTML = hrString;
+                min.innerHTML = minString;
+                sec.innerHTML = secString;
+                cc.innerHTML = countString;
+                setTimeout(stopwatch, 10);
+            }
+        }
+
+    </script>
+</body>
+
+</html>
